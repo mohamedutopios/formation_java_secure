@@ -37,8 +37,8 @@ public class UserController {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
-        String sql = "INSERT INTO person (username, password) VALUES ('" + user.getUsername() + "', '" + user.getPassword() + "')";
-        jdbcTemplate.execute(sql);
+        String sql = "INSERT INTO person (username, password) VALUES (?,?)";
+        jdbcTemplate.execute(sql, user.getUsername(), user.getPassword());
         return ResponseEntity.ok("User registered successfully");
     }
 
