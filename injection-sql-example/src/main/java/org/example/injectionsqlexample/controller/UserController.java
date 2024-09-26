@@ -52,12 +52,6 @@ public class UserController {
         return ResponseEntity.status(401).body("Invalid username or password");
     }
 
-    @GetMapping("/signin")
-    public ResponseEntity<?> deleteUser(@RequestParam String username) {
-        String sql = "DELETE FROM person WHERE username = '" + username + "'";
-        jdbcTemplate.execute(sql);
-        return ResponseEntity.ok("User deleted successfully");
-    }
 
 
 @GetMapping("/all")
