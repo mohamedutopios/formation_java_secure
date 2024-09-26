@@ -9,9 +9,7 @@ import java.util.List;
 @Service
 public class UserService {
 
-
     private final UserRepository userRepository;
-
 
     private final PasswordService passwordService;
 

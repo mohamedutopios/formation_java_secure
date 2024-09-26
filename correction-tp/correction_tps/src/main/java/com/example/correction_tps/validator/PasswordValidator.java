@@ -1,10 +1,7 @@
 package com.example.correction_tps.validator;
 
-
 import org.springframework.stereotype.Component;
-
 import java.util.regex.Pattern;
-
 
 @Component
 public class PasswordValidator {

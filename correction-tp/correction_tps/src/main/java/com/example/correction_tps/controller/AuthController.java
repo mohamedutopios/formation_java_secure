@@ -27,7 +27,7 @@ public class AuthController {
         User user = userService.findByUsername(username);
 
         if (user == null || user.isLocked()) {
-            return new ResponseEntity<>("User not found or account is locked", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         if (!passwordService.matchesPassword(password, user.getPassword())) {
