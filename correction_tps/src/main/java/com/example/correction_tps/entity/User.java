@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 @Entity
 @Data
+@Table(name = "app_user")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,6 +26,9 @@ public class User {
     private LocalDateTime lockTime;
     private int failedAttempts;
     private boolean locked;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    private String lastKnownIp;
     public boolean isSleepy() {
         return lastLogin != null && lastLogin.isBefore(LocalDate.now().minusDays(30));
     }
