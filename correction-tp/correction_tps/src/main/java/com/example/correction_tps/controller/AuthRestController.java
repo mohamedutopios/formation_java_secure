@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/auth")
 public class AuthRestController {
 
-    private final UserService userService;
+   /* private final UserService userService;
     private final PasswordService passwordService;
     private final MFAService mfaService;  // Ajout du service MFA
 
@@ -57,5 +57,5 @@ public class AuthRestController {
         user.resetFailedAttempts();
         userService.save(user);
         return new ResponseEntity<>("Login successful", HttpStatus.OK);
-    }
+    }*/
 }
