@@ -84,4 +84,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
         return null; // Retourner null si le token n'est pas présent ou mal formaté
     }
+
+
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getRequestURI();
+        return path.startsWith("/api/auth");
+    }
+
 }

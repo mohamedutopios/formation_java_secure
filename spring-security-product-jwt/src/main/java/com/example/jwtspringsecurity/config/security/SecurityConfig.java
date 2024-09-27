@@ -2,12 +2,15 @@ package com.example.jwtspringsecurity.config.security;
 
 import com.example.jwtspringsecurity.config.jwt.JwtAuthenticationEntryPoint;
 import com.example.jwtspringsecurity.config.jwt.JwtRequestFilter;
+
+import com.example.jwtspringsecurity.filter.EmailVerificationFilter;
 import com.example.jwtspringsecurity.service.UserService;
 
 import java.beans.Customizer;
 import java.util.Arrays;
 import java.util.Collections;
 
+import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +44,11 @@ public class SecurityConfig {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
     }
 
+    @Bean
+    public EmailVerificationFilter emailVerificationFilter(){
+        return new EmailVerificationFilter();
+    }
+
     // Bean pour configurer la chaîne de filtres de sécurité.
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -72,12 +80,15 @@ public class SecurityConfig {
 
                 // Ajouter un filtre personnalisé (JwtRequestFilter dans cet exemple) avant le filtre d'authentification par nom d'utilisateur et mot de passe.
                 // Ce filtre vérifie la présence d'un JWT valide dans les requêtes et l'utilise pour l'authentification.
+                .addFilterBefore(emailVerificationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-// Construire et retourner la chaîne de filtres de sécurité configurée.
+                // Construire et retourner la chaîne de filtres de sécurité configurée.
         return http.build();
 
     }
+
+
 
     // Injection de la configuration d'authentification.
     @Autowired
@@ -107,7 +118,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Collections.singletonList("http://localhost:3000")); // Permettre toutes les origines
+        configuration.setAllowedOriginPatterns(Collections.singletonList("http://localhost:3000")); // Permettre l'accès pour un appel depuis http://localhost:3000
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")); // Permettre toutes les méthodes
         configuration.setAllowedHeaders(Arrays.asList("*")); // Permettre tous les headers
         configuration.setAllowCredentials(true); // Important pour les cookies, l'autorisation, etc.
